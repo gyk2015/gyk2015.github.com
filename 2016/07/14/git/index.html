@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>初识gulp | YiK</title>
+    <title>git | YiK</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="YK">
     
-    <meta name="description" content="一.流程安装nodejs，通过nodejs的npm全局安装和项目安装gulp，其次在项目里安装所需要的gulp插件，然后新建gulp的配置    文件gulpfile.js并写好配置信息（定义gulp任务），最后通过命令提示符运行gulp任务即可。安装nodejs -&amp;gt; 全局安装gulp -&amp;">
+    <meta name="description" content="git init 新建版本库
+
+工作区（Working Directory）就是你在电脑里能看到的目录；版本库（Repository）工作区有一个隐藏目录.git，是Git的版本库。Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第">
     
     
     
@@ -67,15 +69,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/11/初识gulp/" title="初识gulp" itemprop="url">初识gulp</a>
+      <a href="/2016/07/14/git/" title="git" itemprop="url">git</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="YK">YK</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-07-11T06:59:46.000Z" itemprop="datePublished">2016-07-11</time>
-    Updated:<time datetime="2016-07-11T09:11:49.762Z" itemprop="dateModified">2016-07-11</time>
+    <time datetime="2016-07-14T03:16:49.000Z" itemprop="datePublished">2016-07-14</time>
+    Updated:<time datetime="2016-07-14T03:40:17.940Z" itemprop="dateModified">2016-07-14</time>
     
   </p>
 </header>
@@ -87,11 +89,48 @@
 		
 		</div>
 		
-		<p>一.流程<br>安装nodejs，通过nodejs的npm全局安装和项目安装gulp，其次在项目里安装所需要的gulp插件，然后新建gulp的配置    文件gulpfile.js并写好配置信息（定义gulp任务），最后通过命令提示符运行gulp任务即可。<br>安装nodejs -&gt; 全局安装gulp -&gt; 项目安装gulp以及gulp插件 -&gt; 配置gulpfile.js -&gt; 运行任务</p>
-<p>二.npm install 解释<br>使用npm安装插件：命令提示符执行npm install <name> [-g] [–save-dev]；<br>1、<name>：node插件名称。例：npm install gulp-less –save-dev<br>2、-g：全局安装。将会安装在C:\Users\Administrator\AppData\Roaming\npm，并且写入系统环境变量；  非全局安装：将会安装在当前定位目录；  全局安装可以通过命令行在任何地方调用它，本地安装将安装在定位目录的node_modules文件夹下，通过require()调用；<br>3、–save：将保存配置信息至package.json（package.json是nodejs项目配置文件）；<br>4、-dev：保存至package.json的devDependencies节点，不指定-dev将保存至dependencies节点；一般保存在dependencies的像这些express/ejs/body-parser等等。<br>5、为什么要保存至package.json？因为node插件包相对来说非常庞大，所以不加入版本管理，将配置信息写入package.json并将其加入版本管理，其他开发者对应下载即可（命令提示符执行npm install，则会根据package.json下载所有需要的包，npm install –production只下载dependencies节点的包）。</name></name></p>
-<p>三.安装gulp<br>1、全局安装gulp插件，npm install –global gulp;<br>2、定位目录，执行 npm install –save-dev gulp;<br>PS：全局安装了gulp，项目也安装了gulp，全局安装gulp是为了执行gulp任务，本地安装gulp则是为了调用gulp插件的功能。<br>四.新建gulpfile.js<br>gulpfile.js是gulp项目的配置文件，是位于项目根目录<br>五.运行<br>gulp xx<br>gulp default或者gulp会调用default中所有任务。</p>
-<p>附：<br>cd定位到目录，用法：cd + 路径 ；<br>dir列出文件列表；<br>cls清空命令提示符窗口内容。</p>
-<p>参考自<a href="http://www.ydcss.com/archives/18" target="_blank" rel="external">http://www.ydcss.com/archives/18</a><br>仍会不间断更新</p>
+		<blockquote>
+<p>git init 新建版本库</p>
+</blockquote>
+<p>工作区（Working Directory）就是你在电脑里能看到的目录；版本库（Repository）工作区有一个隐藏目录.git，是Git的版本库。Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p>
+<p>添加文件到Git仓库，分两步：</p>
+<p>第一步，使用命令git add <file>注意，可反复多次使用，添加多个文件；实际上就是把文件修改添加到暂存区；</file></p>
+<p>第二步，使用命令git commit，完成。git commit -m “备注信息”，实际上就是把暂存区的所有内容提交到当前分支。</p>
+<p>即需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</p>
+<blockquote>
+<p>git status 查看状态<br>git diff 查看修改的地方<br>git diff 工作区(work dict)和暂存区(stage)的比较<br>git diff –cached  暂存区(stage)和分支(master)的比较</p>
+</blockquote>
+<p>在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^。</p>
+<p>远程库的名字就是origin</p>
+<blockquote>
+<p>git push 把本地库的内容推送到远程</p>
+</blockquote>
+<p>要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；<br>关联后，使用命令git push -u origin master第一次推送master分支的所有内容；<br>此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；</p>
+<blockquote>
+<p>git clone 克隆远端一个仓库</p>
+</blockquote>
+<p>master分支叫主分支。HEAD指向master，master指向提交的，所以，HEAD指向的就是当前分支。<br>git branch 查看分支，列出所有分支，当前分支前加*</p>
+<blockquote>
+<p>git branch <name> 创建分支</name></p>
+<p>git checkout <name> 切换分支</name></p>
+<p>git checkout -b <name> 创建+切换分支</name></p>
+<p>git merge <name> 合并分支</name></p>
+<p>git branch -d <name> 删除分支</name></p>
+<p>git remote -v 查看远程库信息</p>
+</blockquote>
+<p>多人协作：</p>
+<ol>
+<li><p>用git push origin branch-name推送自己的修改；</p>
+</li>
+<li><p>如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；</p>
+</li>
+<li><p>如果合并有冲突，则解决冲突，并在本地提交；</p>
+</li>
+<li><p>没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！</p>
+</li>
+</ol>
+<p>如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch –set-upstream branch-name origin/branch-name。</p>
+<p>在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -111,7 +150,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/07/11/初识gulp/" data-title="初识gulp | YiK" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/07/14/git/" data-title="git | YiK" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -120,19 +159,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/13/sourcetree/" title="sourcetree">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  sourcetree</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/06/postName/"  title="postName">
+<a href="/2016/07/13/sourcetree/"  title="sourcetree">
  <strong>NEXT:</strong><br/> 
- <span>postName
+ <span>sourcetree
 </span>
 </a>
 </div>
