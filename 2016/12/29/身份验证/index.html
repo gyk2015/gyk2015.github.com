@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>身份验证 | YiK</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">身份验证</h1><a id="logo" href="/.">YiK</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 主页</i></a><a href="/archives/"><i class="fa fa-archive"> 文章</i></a><a href="/about/"><i class="fa fa-user"> 关于我</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">身份验证</h1><div class="post-meta">Dec 29, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>最近做的东西都要求根据不同身份显示不同内容，所以研究了下token，基于token的身份验证和本地存储。</p>
+<p><strong>什么是token？</strong><br>token在计算机身份认证中是令牌（临时）的意思。</p>
+<p><strong>基于 Token 的身份验证方法</strong></p>
+<ol>
+<li>客户端使用用户名跟密码请求登录</li>
+<li>服务端收到请求，去验证用户名与密码</li>
+<li>验证成功后，服务端会签发一个 Token，再把这个 Token 发送给客户端</li>
+<li>客户端收到 Token 以后可以把它存储起来，比如放在 Cookie 里或者 Local Storage 里</li>
+<li>客户端每次向服务端请求资源的时候需要带着服务端签发的 Token</li>
+<li>服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据</li>
+</ol>
+<p><strong>本地存储</strong></p>
+<ul>
+<li>localStorage - 没有时间限制的数据存储</li>
+</ul>
+<ul>
+<li>sessionStorage - 针对一个 session 的数据存储</li>
+</ul>
+<p>localStorage与sessionStorage的区别就是localStorage属于永久性存储，而sessionStorage属于当会话结束的时候，sessionStorage中的键值对会被清空</p>
+<p><strong>localStorage的操作</strong><br>localStorage.setItem(“c”,3);<br>localStorage.getItem(“c”);</p>
+<p>   将JSON存入localStorage中，但是在localStorage会自动将localStorage转换成为字符串形式</p>
+<p>   这个时候可以使用JSON.stringify()这个方法，来将JSON转换成为JSON字符串</p>
+<pre><code>if(!window.localStorage){
+    alert(&quot;浏览器支持localstorage&quot;);
+}else{
+    var storage=window.localStorage;
+    var data={
+        name:&apos;xiecanyong&apos;,
+        sex:&apos;man&apos;,
+        hobby:&apos;program&apos;
+    };
+    var d=JSON.stringify(data);
+    storage.setItem(&quot;data&quot;,d);
+    console.log(storage.data);
+}
+</code></pre><p>读取之后要将JSON字符串转换成为JSON对象，使用JSON.parse()方法</p>
+<pre><code>var storage=window.localStorage;
+var data={
+    name:&apos;xiecanyong&apos;,
+    sex:&apos;man&apos;,
+    hobby:&apos;program&apos;
+};
+var d=JSON.stringify(data);
+storage.setItem(&quot;data&quot;,d);
+//将JSON字符串转换成为JSON对象输出
+var json=storage.getItem(&quot;data&quot;);
+var jsonObj=JSON.parse(json);
+</code></pre><p>参考自<a href="http://www.cnblogs.com/st-leslie/p/5617130.html" target="_blank" rel="external">http://www.cnblogs.com/st-leslie/p/5617130.html</a><br>     <a href="https://ninghao.net/blog/2834" target="_blank" rel="external">https://ninghao.net/blog/2834</a></p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/12/29/身份验证/" data-id="cixa9pexr0005rwaab8h82v8r" class="article-share-link">Aktie</a><div class="tags"><a href="/tags/学习/">学习</a></div><div class="post-nav"><a href="/2016/12/29/绑定域名/" class="next">绑定域名</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/学习/" style="font-size: 15px;">学习</a> <a href="/tags/小技巧/" style="font-size: 15px;">小技巧</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/29/身份验证/">身份验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/29/绑定域名/">绑定域名</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/14/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/11/初识gulp/">初识gulp</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">YiK.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
