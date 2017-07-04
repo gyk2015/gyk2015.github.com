@@ -191,6 +191,82 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
+                    <h3><a href="/2017/07/04/node/">node</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2017-07-04T03:10:27.000Z" itemprop="datePublished">
+          2017-07-04
+      </time>
+    
+    
+    | 
+    <a href='/tags/学习/'>学习</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        1https://github.com/gyk2015/-nodejs-
+
+起一个web服务器
+1234567891011121314const http = require('http');const hostname = '127.0.0.1';const port = 3000;const server = http.createServer((req, res) =&gt; &#123;  res.statusCode = 20
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2017/07/04/node/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2017/07/04/promise学习/">promise学习</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2017-07-04T02:26:11.000Z" itemprop="datePublished">
+          2017-07-04
+      </time>
+    
+    
+    | 
+    <a href='/tags/学习/'>学习</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        
+含义
+Promise 是一个对象，异步编程的一种解决方案。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+Promise对象有以下两个特点。（1）对象的状态不受外界影响。有三种状态：Pending（进行中）、Resolved（已完成，又称 Fulfilled）和Rejected（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。（2）一旦状态改变，就不会再变，任何时候
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2017/07/04/promise学习/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
                     <h3><a href="/2017/04/14/面向对象-选课系统实验1/">面向对象-选课系统实验1</a></h3>
                     <span>
                         <span class="post-meta">
@@ -473,83 +549,6 @@ line-height如果要垂直居中的只有一行或几个文字，只要让文字
                     
                     <p class="pull-right readMore">
                         <a href="/2017/03/15/获取url参数并创建对象/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2017/03/09/JSON-parse、JSON-stringify和evel/">JSON.parse、JSON.stringify和evel</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2017-03-09T02:31:02.000Z" itemprop="datePublished">
-          2017-03-09
-      </time>
-    
-    
-    | 
-    <a href='/tags/学习/'>学习</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        
-parse用于从一个字符串中解析出json对象,如
-
-123456789var str = &apos;&#123;&quot;name&quot;:&quot;huangxiaojian&quot;,&quot;age&quot;:&quot;23&quot;&#125;&apos;结果：JSON.parse(str)Objectage: &quot;23&quot;name: &quot;huangxiaojian&quot;__
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2017/03/09/JSON-parse、JSON-stringify和evel/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2017/03/06/闭包/">闭包</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2017-03-06T09:35:32.000Z" itemprop="datePublished">
-          2017-03-06
-      </time>
-    
-    
-    | 
-    <a href='/tags/学习/'>学习</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        
-立即执行函数
-
-
-函数声明、函数表达式、匿名函数函数声明：function fnName () {…};使用function关键字声明一个函数，再指定一个函数名，叫函数声明。函数表达式 var fnName = function () {…};使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式，这是最常见的函数表达式语法形式。匿名函数：function () {}; 使用function关
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2017/03/06/闭包/">Read More...</a>
                     </p>
                     
                 </div>
