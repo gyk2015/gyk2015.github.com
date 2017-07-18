@@ -149,6 +149,198 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-javaScript学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/29/javaScript学习/">javaScript学习</a>
+    </h1>
+  
+
+        
+        <a href="/2016/12/29/javaScript学习/" class="archive-article-date">
+  	<time datetime="2016-12-29T13:21:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="2016-12-29"><a href="#2016-12-29" class="headerlink" title="2016/12/29"></a>2016/12/29</h2><h2 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h2><p>JavaScript在设计时，有两种比较运算符：</p>
+<p>第一种是==比较，它会自动转换数据类型再比较，很多时候，会得到非常诡异的结果；</p>
+<p>第二种是===比较，它不会自动转换数据类型，如果数据类型不一致，返回false，如果一致，再比较。</p>
+<p>由于JavaScript这个设计缺陷，不要使用==比较，始终坚持使用===比较。</p>
+<h2 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h2><p><strong>NaN</strong>与所有其他值都不相等，包括它自己：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NaN === NaN; // false</div></pre></td></tr></table></figure>
+<p>唯一能判断NaN的方法是通过isNaN()函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">isNaN(NaN); // true</div></pre></td></tr></table></figure>
+<h2 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h2><p><strong>null</strong>表示一个空的值，而<strong>undefined</strong>表示值未定义,就是此处应该有一个值，但是还没有定义。<br><strong>undefined</strong></p>
+<ul>
+<li>变量被声明了，但没有赋值时，就等于undefined。</li>
+</ul>
+<ul>
+<li>调用函数时，应该提供的参数没有提供，该参数等于undefined。</li>
+</ul>
+<ul>
+<li>对象没有赋值的属性，该属性的值为undefined。</li>
+</ul>
+<ul>
+<li>函数没有返回值时，默认返回undefined。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var i;</div><div class="line">i // undefined</div><div class="line">function f(x)&#123;console.log(x)&#125;</div><div class="line">f() // undefined</div><div class="line">var  o = new Object();</div><div class="line">o.p // undefined</div><div class="line">var x = f();</div><div class="line">x // undefined</div></pre></td></tr></table></figure>
+<p><strong>null</strong><br>暂时不理解</p>
+<ul>
+<li>作为函数的参数，表示该函数的参数不是对象。</li>
+</ul>
+<ul>
+<li>作为对象原型链的终点。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.getPrototypeOf(Object.prototype)</div><div class="line">// null</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="2017-1-5"><a href="#2017-1-5" class="headerlink" title="2017/1/5"></a>2017/1/5</h2><h2 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h2><ul>
+<li>5种基本数据类型：undefined,null,boolean,number,string。</li>
+</ul>
+<ul>
+<li>在很多语言中，字符串以对象形式表示，因此被认为是引用类型。ECAMScript放弃这一传统。</li>
+</ul>
+<ul>
+<li><p>只能给引用类型值动态添加属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var p=new Object();</div><div class="line">var q=&quot;gyk&quot;;</div><div class="line">p.name=&quot;hh&quot;;</div><div class="line">q.age=22;</div><div class="line">alert(p.name);//hh</div><div class="line">alert(q.age);//undefined</div></pre></td></tr></table></figure>
+</li>
+<li><p>ECAMScript所有函数的参数都是按值传递的。</p>
+<h2 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h2><p>定义函数方式有两种：1、函数声明；2、函数表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">function f()&#123;&#125;//函数声明</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var functionName=function()&#123;&#125;//函数表达式</div></pre></td></tr></table></figure>
+<p>关于函数声明的一个重要特征是函数声明提升，即在执行代码前会先读取函数声明。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">f();</div><div class="line">function f()&#123; </div><div class="line">	alert(&quot;hello world&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>关于函数表达式，创建的函数叫做匿名函数。在使用前必须先赋值。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sayHi();//错误</div><div class="line">var sayHi=function()&#123;alert(&quot;hello world&quot;);&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>arguments.callee是一个指向正在执行的函数的指针，可以用它来实现对函数的递归调用（严格模式下不可用）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">    if(num&lt;）&#123;</div><div class="line">		return1；</div><div class="line">	&#125;else&#123;</div><div class="line">		return num*farguments.calee(num-1);</div><div class="line">	&#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>廖雪峰的解释：闭包就是携带状态的函数，并且它的状态可以完全对外隐藏起来。<br>阮一峰的解释：闭包就是能够读取其他函数内部变量的函数。由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。<br>综合理解来看，闭包就是能够获得另一个函数作用域中的变量的一个函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function lazy_sum(arr) &#123;</div><div class="line">    var sum = function () &#123;</div><div class="line">        return arr.reduce(function (x, y) &#123;</div><div class="line">            return x + y;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    return sum;//闭包</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f = lazy_sum([1, 2, 3, 4, 5]); // function sum()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f(); // 15</div></pre></td></tr></table></figure>
+<p>使用返回闭包时应当注意一点：返回函数不要引用任何循环变量，或者后续会发生变化的变量。否则可能会造成以下的错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function count() &#123;</div><div class="line">    var arr = [];</div><div class="line">    for (var i=1; i&lt;=3; i++) &#123;</div><div class="line">        arr.push(function () &#123;</div><div class="line">            return i * i;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    return arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var results = count();</div><div class="line">var f1 = results[0];</div><div class="line">var f2 = results[1];</div><div class="line">var f3 = results[2];</div><div class="line">f1(); // 16</div><div class="line">f2(); // 16</div><div class="line">f3(); // 16</div></pre></td></tr></table></figure></p>
+<p>返回的函数都引用了同一个变量i，最后i变为4，所以最终执行的时候结果为16。<br>解决方法如下,通过创建一个匿名函数并立即执行，强制让闭包行为符合预期：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function count() &#123;</div><div class="line">    var arr = [];</div><div class="line">    for (var i=1; i&lt;=3; i++) &#123;</div><div class="line">        arr.push((function (n) &#123;</div><div class="line">            return function () &#123;</div><div class="line">                return n * n;</div><div class="line">            &#125;</div><div class="line">        &#125;)(i));</div><div class="line">    &#125;</div><div class="line">    return arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var results = count();</div><div class="line">var f1 = results[0];</div><div class="line">var f2 = results[1];</div><div class="line">var f3 = results[2];</div><div class="line"></div><div class="line">f1(); // 1</div><div class="line">f2(); // 4</div><div class="line">f3(); // 9</div></pre></td></tr></table></figure></p>
+<p>至于这两段代码，暂时没理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var name = &quot;The Window&quot;;</div><div class="line">　　var object = &#123;</div><div class="line">　　　　name : &quot;My Object&quot;,</div><div class="line">　　　　getNameFunc : function()&#123;</div><div class="line">　　　　　　return function()&#123;</div><div class="line">　　　　　　　　return this.name;</div><div class="line">　　　　　　&#125;;</div><div class="line">　　　　&#125;</div><div class="line">　　&#125;;</div><div class="line">　　alert(object.getNameFunc()());</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var name = &quot;The Window&quot;;</div><div class="line">　　var object = &#123;</div><div class="line">　　　　name : &quot;My Object&quot;,</div><div class="line">　　　　getNameFunc : function()&#123;</div><div class="line">　　　　　　var that = this;</div><div class="line">　　　　　　return function()&#123;</div><div class="line">　　　　　　　　return that.name;</div><div class="line">　　　　　　&#125;;</div><div class="line">　　　　&#125;</div><div class="line">　　&#125;;</div><div class="line">　　alert(object.getNameFunc()());</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="2017-1-6"><a href="#2017-1-6" class="headerlink" title="2017/1/6"></a>2017/1/6</h2><h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof操作符获取对象的类型，它总是返回一个字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">typeof 123; // &apos;number&apos;</div><div class="line">typeof NaN; // &apos;number&apos;</div><div class="line">typeof &apos;str&apos;; // &apos;string&apos;</div><div class="line">typeof true; // &apos;boolean&apos;</div><div class="line">typeof undefined; // &apos;undefined&apos;</div><div class="line">typeof Math.abs; // &apos;function&apos;</div><div class="line">typeof null; // &apos;object&apos;</div><div class="line">typeof []; // &apos;object&apos;</div><div class="line">typeof &#123;&#125;; // &apos;object&apos;</div></pre></td></tr></table></figure></p>
+<p>JavaScript提供了包装对象,number、boolean和string都有包装对象。中，字符串也区分string类型和它的包装类型。包装对象用new创建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typeof new Number(123); // &apos;object&apos;</div><div class="line">new Number(123) === 123; // false</div><div class="line"></div><div class="line">typeof new Boolean(true); // &apos;object&apos;</div><div class="line">new Boolean(true) === true; // false</div><div class="line"></div><div class="line">typeof new String(&apos;str&apos;); // &apos;object&apos;</div><div class="line">new String(&apos;str&apos;) === &apos;str&apos;; // false</div></pre></td></tr></table></figure></p>
+<p>当没有写new，此时，Number()、Boolean和String()被当做普通函数，把任何类型的数据转换为number、boolean和string类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var n = Number(&apos;123&apos;); // 123，相当于parseInt()或parseFloat()</div><div class="line">typeof n; // &apos;number&apos;</div><div class="line"></div><div class="line">var b = Boolean(&apos;true&apos;); // true</div><div class="line">typeof b; // &apos;boolean&apos;</div><div class="line"></div><div class="line">var b2 = Boolean(&apos;false&apos;); // true! &apos;false&apos;字符串转换结果为true！因为它是非空字符串！</div><div class="line">var b3 = Boolean(&apos;&apos;); // false</div><div class="line"></div><div class="line">var s = String(123.45); // &apos;123.45&apos;</div><div class="line">typeof s; // &apos;string&apos;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>不要使用new Number()、new Boolean()、new String()创建包装对象； </li>
+<li>用parseInt()或parseFloat()来转换任意类型到number；</li>
+<li>用String()来转换任意类型到string，或者直接调用某个对象的toString()方法；</li>
+<li>通常不必把任意类型转换为boolean再判断，因为可以直接写if (myVar) {…}；</li>
+<li>typeof操作符可以判断出number、boolean、string、function和undefined；</li>
+<li>判断Array要使用Array.isArray(arr)；</li>
+<li>判断null请使用myVar === null；</li>
+<li>判断某个全局变量是否存在用typeof window.myVar === ‘undefined’；</li>
+<li>函数内部判断某个变量是否存在用typeof myVar === ‘undefined’。<br>null和undefined没有toString方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">123..toString(); // &apos;123&apos;, 注意是两个点！</div><div class="line">(123).toString(); // &apos;123&apos;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><ol>
+<li>正则表达式图形化界面：www.regexper.com</li>
+<li>ECAMscript通过RegExp类型来支持正则表达式。两种方式实例化RegExp：字面量，构造函数。<ul>
+<li>字面量：var reg=/\bis\b/g;</li>
+<li>构造函数：var reg=new RegExp(‘\bis\b’,’g’);</li>
+</ul>
+</li>
+<li>修饰符：<ul>
+<li>g，全文搜索，不添加，搜索到第一个匹配为止</li>
+<li>i，忽略大小写</li>
+<li>m，多行搜索</li>
+</ul>
+</li>
+<li>正则表达式由两种基本字符类型组成：<ul>
+<li>原义文本字符</li>
+<li>元字符（有特殊含义的非字母字符*+？$^.|(){}[]）</li>
+</ul>
+</li>
+<li>我们可以使用元字符[]来构造一个简单的类（符合某些特征的对象）<ul>
+<li>字符类<br>[abc/g]匹配a或b或c，[^abc/g]取反，匹配a或b或c以外的字符。</li>
+<li>范围类<br>[0-9A-Z]</li>
+<li>预定义类<br><img src="http://i.imgur.com/hAjx5LN.png" alt=""><img src="http://i.imgur.com/DYDCsZ8.png" alt=""></li>
+</ul>
+</li>
+<li>量词<br><img src="http://i.imgur.com/9TcLnn8.png" alt=""><br>[0-9a-zA-Z_]可以匹配一个数字、字母或者下划线；<br>[0-9a-zA-Z_]+可以匹配至少由一个数字、字母或者下划线组成的字符串，比如’a100’，’0<em>Z’，’js2015’等等；<br>[a-zA-Z\</em>\$][0-9a-zA-Z_\$]*可以匹配由字母或下划线、$开头，后接任意个由一个数字、字母或者下划线、$组成的字符串，也就是JavaScript允许的变量名；<br>[a-zA-Z_\$][0-9a-zA-Z_\$]{0, 19}更精确地限制了变量的长度是1-20个字符（前面1个字符+后面最多19个字符）。</li>
+<li>或，|，A|B可以匹配A或B。例如(J|j)ava(S|s)cript可以匹配’JavaScript’、’Javascript’、’javaScript’或者’javascript’。</li>
+<li>贪婪模式与非贪婪模式<ul>
+<li>贪婪模式<br>\d{3,6},12345678，此时会匹配123456</li>
+<li>非贪婪模式<br>\d{3,6}?,12345678,此时匹配123</li>
+</ul>
+</li>
+<li>分组，（）。 反向引用，例如：’2016-11-25’.replace(/(\d{4})-(\d{2})-(\d{2))/g,’$2$3$1’)最终结果为12/25/2015。忽略分组？:。</li>
+<li>lastIndex当前匹配字符的下一个位置。</li>
+<li>test()测试字符串长达数是否存在匹配正则表达式。<br>var reg1=/\w/;<br>var reg2=/\w/g;<br>reg1.text(“A”);//true</li>
+<li>exec()使用正则表达式对字符串进行搜索。</li>
+</ol>
+<hr>
+<h2 id="2017-1-8"><a href="#2017-1-8" class="headerlink" title="2017/1/8"></a>2017/1/8</h2><h2 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h2><p>JavaScript不区分类和实例的概念，而是通过原型（prototype）来实现面向对象编程。为了解决从原型对象生成实例的问题，Javascript提供了一个构造函数（Constructor）模式。”构造函数”其实是一个普通函数，但是内部使用了this变量。对构造函数使用new运算符，就能生成实例，并且this变量会绑定在实例对象上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　function Cat(name,color)&#123;</div><div class="line">　　　　this.name=name;</div><div class="line">　　　　this.color=color;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　  var cat1 = new Cat(&quot;大毛&quot;,&quot;黄色&quot;);</div><div class="line">　　var cat2 = new Cat(&quot;二毛&quot;,&quot;黑色&quot;);</div><div class="line">　　alert(cat1.name); // 大毛</div><div class="line">　　alert(cat1.color); // 黄色</div></pre></td></tr></table></figure>
+<p>cat1和cat2会自动含有一个constructor属性，指向它们的构造函数。<br>Javascript规定，每一个构造函数都有一个prototype属性，指向另一个对象。这个对象的所有属性和方法，都会被构造函数的实例继承。<br>这意味着，我们可以把那些不变的属性和方法，直接定义在prototype对象上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　function Cat(name,color)&#123;</div><div class="line">　　　　this.name = name;</div><div class="line">　　　　this.color = color;</div><div class="line">　　&#125;</div><div class="line">　　Cat.prototype.type = &quot;猫科动物&quot;;</div><div class="line">　　Cat.prototype.eat = function()&#123;alert(&quot;吃老鼠&quot;)&#125;;</div></pre></td></tr></table></figure></p>
+<p>创建对象</p>
+<ul>
+<li>工厂模式</li>
+<li>构造函数模式<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job)&#123;</div><div class="line">	this.name=name;</div><div class="line">	this.job=job;</div><div class="line">	this.age=age;</div><div class="line">	this.say=function()&#123;</div><div class="line">		alert(this.name);</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">var person1=new Person(&quot;xiaoming&quot;,12,&quot;teacher&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>构造函数本身也是函数。使用大写字母。使用new操作符，实际上经历4个步骤：</p>
+<pre><code>1. 创建一个新对象
+2. 将构造函数的作用域赋给新对象（this指向新对象）
+3. 执行构造函数的代码（为这个新对象添加属性）
+4. 返回新对象
+</code></pre><p>新对象有一个constructor（构造函数）属性，指向Person。<br>如果不使用new，属性和方法都会被添加给window对象。<br>只要创建了一个新函数，就会为该函数创建一个prototype属性，这个属性指向函数的原型对象。<br>所有原型对象有一个constructor属性，该属性包含一个指向prototype属性所在函数的指针。<br>当创建一个新实例，该实例内部含有一个指针（[[Prototype]]）指向构造函数的原型对象。<br><img src="http://i.imgur.com/o1mSswz.jpg" alt=""></p>
+<hr>
+<h2 id="2017-1-18"><a href="#2017-1-18" class="headerlink" title="2017/1/18"></a>2017/1/18</h2><h2 id="HTML嵌套规则"><a href="#HTML嵌套规则" class="headerlink" title="HTML嵌套规则"></a>HTML嵌套规则</h2><ol>
+<li>块元素可以包含内联元素或某些块元素，但内联元素却不能包含块元素，只能包含内联元素</li>
+<li>块元素不能放在p里面</li>
+<li>特殊块元素只能包含内联元素，不能再包含块元素，h1-h6,p，dt</li>
+<li>li可以包含div标签</li>
+<li>块元素与块元素并列，内联元素与内联元素并列</li>
+<li>块级元素:div h p from ul li dl dt dd;行内元素：span a label strong em input</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/29/javaScript学习/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-身份验证" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -572,11 +764,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -631,7 +823,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">人生总是起起落落落落落</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">你小时候相当科学家，想当超人，想拯救世界，但后来你慢慢变了，变成那个只想给爸妈安稳的生活，给她一个美好的未来，给你们的孩子一个温馨的住所。。。你不再是超人，但你撑起了一个家</div>
   	  	
     	</section>
     
