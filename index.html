@@ -149,6 +149,138 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-vue双向绑定原理探索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/20/vue双向绑定原理探索/">双向绑定原理探索</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/20/vue双向绑定原理探索/" class="archive-article-date">
+  	<time datetime="2017-07-20T15:00:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习一个框架，不仅仅是要会用，原理也要懂一些（直接看源码的话就算了，能力不够）。所以先从vue双向绑定原理入手，慢慢研究吃透。主要参考了网上的博客，加上个人总结。</p>
+<p>vue主要采用数据劫持结合发布者订阅者的方式，通过object。defineProperty()来劫持各个属性的setter,getter，在数据变动是发布消息给订阅者，出发相应的监听回调。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang="en"&gt;</div><div class="line">&lt;head&gt;</div><div class="line">  &lt;meta charset="UTF-8"&gt;</div><div class="line">  &lt;title&gt;Two-way data-binding&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  </div><div class="line">  &lt;div id="app"&gt;</div><div class="line">    &lt;input type="text" v-model="text"&gt;</div><div class="line">    &#123;&#123; text &#125;&#125;</div><div class="line">  &lt;/div&gt;</div><div class="line"></div><div class="line">  &lt;script&gt;</div><div class="line">    function observe (obj, vm) &#123;</div><div class="line">      Object.keys(obj).forEach(function (key) &#123;</div><div class="line">        defineReactive(vm, key, obj[key]);</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">    function defineReactive (obj, key, val) &#123;</div><div class="line">      var dep = new Dep();</div><div class="line">      Object.defineProperty(obj, key, &#123;</div><div class="line">        get: function () &#123;</div><div class="line">          // 添加订阅者watcher到主题对象Dep</div><div class="line">          if (Dep.target) dep.addSub(Dep.target);</div><div class="line">          return val</div><div class="line">        &#125;,</div><div class="line">        set: function (newVal) &#123;</div><div class="line">          if (newVal === val) return</div><div class="line">          val = newVal;</div><div class="line">          // 作为发布者发出通知</div><div class="line">          dep.notify();</div><div class="line">        &#125;</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">    function nodeToFragment (node, vm) &#123;</div><div class="line">      var flag = document.createDocumentFragment();</div><div class="line">      var child;</div><div class="line">      </div><div class="line">      while (child = node.firstChild) &#123;</div><div class="line">        compile(child, vm);</div><div class="line">        flag.appendChild(child); // 将子节点劫持到文档片段中</div><div class="line">      &#125;</div><div class="line">      return flag;</div><div class="line">    &#125;</div><div class="line">    function compile (node, vm) &#123;</div><div class="line">      var reg = /\&#123;\&#123;(.*)\&#125;\&#125;/;</div><div class="line">      // 节点类型为元素</div><div class="line">      if (node.nodeType === 1) &#123;</div><div class="line">        var attr = node.attributes;</div><div class="line">        // 解析属性</div><div class="line">        for (var i = 0; i &lt; attr.length; i++) &#123;</div><div class="line">          if (attr[i].nodeName == 'v-model') &#123;</div><div class="line">            var name = attr[i].nodeValue; // 获取v-model绑定的属性名</div><div class="line">            node.addEventListener('input', function (e) &#123;</div><div class="line">              // 给相应的data属性赋值，进而触发该属性的set方法</div><div class="line">              vm[name] = e.target.value;</div><div class="line">            &#125;);</div><div class="line">            node.value = vm[name]; // 将data的值赋给该node</div><div class="line">            node.removeAttribute('v-model');</div><div class="line">          &#125;</div><div class="line">        &#125;;</div><div class="line">        new Watcher(vm, node, name, 'input');</div><div class="line">      &#125;</div><div class="line">      // 节点类型为text</div><div class="line">      if (node.nodeType === 3) &#123;</div><div class="line">        if (reg.test(node.nodeValue)) &#123;</div><div class="line">          var name = RegExp.$1; // 获取匹配到的字符串</div><div class="line">          name = name.trim();</div><div class="line">          new Watcher(vm, node, name, 'text');</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    function Watcher (vm, node, name, nodeType) &#123;</div><div class="line">      Dep.target = this;</div><div class="line">      this.name = name;</div><div class="line">      this.node = node;</div><div class="line">      this.vm = vm;</div><div class="line">      this.nodeType = nodeType;</div><div class="line">      this.update();</div><div class="line">      Dep.target = null;</div><div class="line">    &#125;</div><div class="line">    Watcher.prototype = &#123;</div><div class="line">      update: function () &#123;</div><div class="line">        this.get();</div><div class="line">        if (this.nodeType == 'text') &#123;</div><div class="line">          this.node.nodeValue = this.value;</div><div class="line">        &#125;</div><div class="line">        if (this.nodeType == 'input') &#123;</div><div class="line">          this.node.value = this.value;</div><div class="line">        &#125;</div><div class="line">      &#125;,</div><div class="line">      // 获取data中的属性值</div><div class="line">      get: function () &#123;</div><div class="line">        this.value = this.vm[this.name]; // 触发相应属性的get</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    function Dep () &#123;</div><div class="line">      this.subs = []</div><div class="line">    &#125;</div><div class="line">    Dep.prototype = &#123;</div><div class="line">      addSub: function(sub) &#123;</div><div class="line">        this.subs.push(sub);</div><div class="line">      &#125;,</div><div class="line">      notify: function() &#123;</div><div class="line">        this.subs.forEach(function(sub) &#123;</div><div class="line">          sub.update();</div><div class="line">        &#125;);</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">    function Vue (options) &#123;</div><div class="line">      this.data = options.data;</div><div class="line">      var data = this.data;</div><div class="line">      observe(data, this);</div><div class="line">      var id = options.el;</div><div class="line">      var dom = nodeToFragment(document.getElementById(id), this);</div><div class="line">      // 编译完成后，将dom返回到app中</div><div class="line">      document.getElementById(id).appendChild(dom); </div><div class="line">    &#125;</div><div class="line">    var vm = new Vue(&#123;</div><div class="line">      el: 'app',</div><div class="line">      data: &#123;</div><div class="line">        text: 'hello world'</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">  &lt;/script&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>以下是大概的流程。</p>
+<p><img src="C:\Users\逸坤\Desktop\0001.jpg" alt="0001"></p>
+<p> 参考<a href="http://www.cnblogs.com/kidney/p/6052935.html?utm_source=gold_browser_extension" target="_blank" rel="external">http://www.cnblogs.com/kidney/p/6052935.html?utm_source=gold_browser_extension</a></p>
+<p>​    <a href="https://segmentfault.com/a/1190000006599500" target="_blank" rel="external">https://segmentfault.com/a/1190000006599500</a></p>
+<p>未完…..</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/20/vue双向绑定原理探索/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-React和Vue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/19/React和Vue/">React和Vue</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/19/React和Vue/" class="archive-article-date">
+  	<time datetime="2017-07-19T14:54:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>React 和 Vue 有许多相似之处<ul>
+<li>使用 Virtual DOM</li>
+<li>提供了响应式（Reactive）和组件化（Composable）的视图组件。</li>
+<li>将注意力集中保持在核心库，而将其他功能如路由和全局状态管理交给相关的库。</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/19/React和Vue/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-常用的一些方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -764,196 +896,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/03/28/缓存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-由清除浮动引发对BFC的理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/27/由清除浮动引发对BFC的理解/">由清除浮动引发对BFC的理解</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/27/由清除浮动引发对BFC的理解/" class="archive-article-date">
-  	<time datetime="2017-03-27T12:46:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我知道清除浮动可以用clear：both、overflow：hidden等，可是究其原因，居然回答不上，于是自行百度了原因，知道了清除浮动可分为两类：</p>
-<ol>
-<li>清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；</li>
-<li>闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。</li>
-</ol>
-<p>清除浮动办法集合：</p>
-<ol>
-<li>添加额外标签</li>
-<li>使用br标签和其自身html属性（br 有 clear=“all | left | right | none” 属性）</li>
-<li>父元素设置 overflow：hidden</li>
-<li>父元素设置 overflow：auto</li>
-<li>父元素设置display:table</li>
-<li>使用:after 伪元素<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.clearfix:after &#123;</div><div class="line">	content:&quot;.&quot;; </div><div class="line">	display:block; </div><div class="line">	height:0; </div><div class="line">	visibility:hidden; </div><div class="line">	clear:both; &#125;</div><div class="line">.clearfix &#123; *zoom:1; &#125;</div><div class="line">1) display:block 使生成的元素以块级元素显示,占满剩余空间;</div><div class="line">2) height:0 避免生成内容破坏原有布局的高度。</div><div class="line">3) visibility:hidden 使生成的内容不可见，并允许可能被生成内容盖住的内容可以进行点击和交互;</div><div class="line">4）通过 content:&quot;.&quot;生成内容作为最后一个元素，至于content里面是点还是其他都是可以的，例如oocss里面就有经典的 content:&quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;,有些版本可能content 里面内容为空,一丝冰凉是不推荐这样做的,firefox直到7.0 content:”&quot; 仍然会产生额外的空隙；</div><div class="line">5）zoom：1 触发IE hasLayout。</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>方法很多，原因却说不清楚。后来又查到了BFC，才明白部分原理。<br>先看看BFC</p>
-<h1 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h1><p>Box: CSS布局的基本单位<br>Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和 display 属性，决定了这个 Box 的类型。 不同类型的 Box， 会参与不同的 Formatting Context（一个决定如何渲染文档的容器），因此Box内的元素会以不同的方式渲染。让我们看看有哪些盒子：</p>
-<ul>
-<li>block-level box:display 属性为 block, list-item, table 的元素，会生成 block-level box。并且参与 block fomatting context；</li>
-</ul>
-<ul>
-<li>inline-level box:display 属性为 inline, inline-block, inline-table 的元素，会生成 inline-level box。并且参与 inline formatting context；</li>
-</ul>
-<ul>
-<li>run-in box: css3 中才有。</li>
-</ul>
-<p>Formatting context<br>Formatting context 是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。最常见的 Formatting context 有 Block fomatting context (简称BFC)和 Inline formatting context (简称IFC)。<br>CSS2.1 中只有 BFC 和 IFC, CSS3 中还增加了 GFC 和 FFC。</p>
-<p>BFC(Block formatting context)直译为”块级格式化上下文”。它是一个独立的渲染区域，只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。</p>
-<p>通俗点的解释是：在普通流中的 Box(框) 属于一种 formatting context(格式化上下文) ，类型可以是 block ，或者是 inline ，但不能同时属于这两者。并且， Block boxes(块框) 在 block formatting context(块格式化上下文) 里格式化， Inline boxes(块内框) 则在 inline formatting context(行内格式化上下文) 里格式化。任何被渲染的元素都属于一个 box ，并且不是 block ，就是 inline 。即使是未被任何元素包裹的文本，根据不同的情况，也会属于匿名的 block boxes 或者 inline boxes。所以上面的描述，即是把所有的元素划分到对应的 formatting context 里。</p>
-<p>BFC布局规则：</p>
-<ul>
-<li>内部的Box会在垂直方向，一个接一个地放置。</li>
-</ul>
-<ul>
-<li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</li>
-</ul>
-<ul>
-<li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
-</ul>
-<ul>
-<li>BFC的区域不会与float box重叠。</li>
-</ul>
-<ul>
-<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</li>
-</ul>
-<ul>
-<li>计算BFC的高度时，浮动元素也参与计算</li>
-</ul>
-<h1 id="哪些元素形成BFC"><a href="#哪些元素形成BFC" class="headerlink" title="哪些元素形成BFC"></a>哪些元素形成BFC</h1><ul>
-<li>根元素</li>
-<li>float属性不为none</li>
-<li>position为absolute或fixed</li>
-<li>display为inline-block，table-cell，table-caption，flex，inline-flex</li>
-<li>overflow不为visible</li>
-</ul>
-<h1 id="BFC作用及原理"><a href="#BFC作用及原理" class="headerlink" title="BFC作用及原理"></a>BFC作用及原理</h1><h2 id="自适应两栏布局"><a href="#自适应两栏布局" class="headerlink" title="自适应两栏布局"></a>自适应两栏布局</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">    body &#123;</div><div class="line">        width: 300px;</div><div class="line">        position: relative;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    .aside &#123;</div><div class="line">        width: 100px;</div><div class="line">        height: 150px;</div><div class="line">        float: left;</div><div class="line">        background: #f66;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    .main &#123;</div><div class="line">        height: 200px;</div><div class="line">        background: #fcc;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;aside&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;main&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://p1.qhimg.com/d/inn/4055c62a/4dca44a927d4c1ffc30e3ae5f53a0b79.png?_=3674372" alt=""><br><strong>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</strong><br>因此，虽然存在浮动的元素aslide，但main的左边依然会与包含块的左边相接触。<br><strong>BFC的区域不会与float box重叠。</strong><br>因此，当<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.main &#123;</div><div class="line">    overflow: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>当触发main生成BFC后，这个新的BFC不会与浮动的aside重叠。因此会根据包含块的宽度，和aside的宽度，自动变窄。效果如下：<br><img src="http://p6.qhimg.com/t01077886a9706cb26b.png?_=3674372" alt=""></p>
-<h2 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">    .par &#123;</div><div class="line">        border: 5px solid #fcc;</div><div class="line">        width: 300px;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    .child &#123;</div><div class="line">        border: 5px solid #f66;</div><div class="line">        width:100px;</div><div class="line">        height: 100px;</div><div class="line">        float: left;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;par&quot;&gt;</div><div class="line">        &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;</div><div class="line">        &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://p1.qhimg.com/t016035b58195e7909a.png?_=3674372" alt=""><br><strong>计算BFC的高度时，浮动元素也参与计算</strong><br>因此，当<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.par &#123;</div><div class="line">    overflow: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><img src="http://p2.qhimg.com/t016bbbe5236ef1ffd5.png?_=3674372" alt=""><br><em>这也就解释了为什么overflow：hidden，overflow：auto能够清除浮动</em></p>
-<h2 id="防止垂直margin重叠"><a href="#防止垂直margin重叠" class="headerlink" title="防止垂直margin重叠"></a>防止垂直margin重叠</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">    p &#123;</div><div class="line">        color: #f55;</div><div class="line">        background: #fcc;</div><div class="line">        width: 200px;</div><div class="line">        line-height: 100px;</div><div class="line">        text-align:center;</div><div class="line">        margin: 100px;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;p&gt;Haha&lt;/p&gt;</div><div class="line">    &lt;p&gt;Hehe&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<p><strong>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</strong><br>两个p之间的距离为100px，发送了margin重叠。<br>我们可以在p外面包裹一层容器，并触发该容器生成一个BFC。那么两个P便不属于同一个BFC，就不会发生margin重叠了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">    .wrap &#123;</div><div class="line">        overflow: hidden;</div><div class="line">    &#125;</div><div class="line">    p &#123;</div><div class="line">        color: #f55;</div><div class="line">        background: #fcc;</div><div class="line">        width: 200px;</div><div class="line">        line-height: 100px;</div><div class="line">        text-align:center;</div><div class="line">        margin: 100px;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;p&gt;Haha&lt;/p&gt;</div><div class="line">    &lt;div class=&quot;wrap&quot;&gt;</div><div class="line">        &lt;p&gt;Hehe&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</strong><br>因为BFC内部的元素和外部的元素绝对不会互相影响，因此， 当BFC外部存在浮动时，它不应该影响BFC内部Box的布局，BFC会通过变窄，而不与浮动有重叠。同样的，当BFC内部有浮动时，为了不影响外部元素的布局，BFC计算高度时会包括浮动的高度。避免margin重叠也是这样的一个道理。</p>
-<p>所以说到闭合浮动：</p>
-<p>在支持BFC的浏览器（IE8+，firefox，chrome，safari）通过创建新的BFC闭合浮动；</p>
-<p>在不支持 BFC的浏览器 （IE6-7），通过触发 hasLayout 闭合浮动。</p>
-<p>关于浮动还有一个问题，即既然浮动元素脱离了文档流，为什么文字会环绕在浮动元素的周边而不是跟浮动元素重合呢？为什么position：absolute则会覆盖呢？<br>如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">    body &#123;</div><div class="line">        width: 300px;</div><div class="line">        position: relative;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    .aside &#123;</div><div class="line">        width: 100px;</div><div class="line">        height: 150px;</div><div class="line">        float: left;</div><div class="line">       /* position: absolute;*/</div><div class="line">        background: #f66;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    .main &#123;</div><div class="line">        height: 200px;</div><div class="line">        background: #fcc;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;aside&quot;&gt;aside&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;main&quot;&gt;main为什么没有被aside遮盖？？？？？&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://i.imgur.com/BsGlX5M.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;index&lt;/title&gt;</div><div class="line">	&lt;style&gt;</div><div class="line">	    body &#123;</div><div class="line">	        width: 300px;</div><div class="line">	        position: relative;</div><div class="line">	    &#125;</div><div class="line">	 </div><div class="line">	    .aside &#123;</div><div class="line">	        width: 100px;</div><div class="line">	        height: 150px;</div><div class="line">	        position: absolute;</div><div class="line">	        background: #f66;</div><div class="line">	    &#125;</div><div class="line">	 </div><div class="line">	    .main &#123;</div><div class="line">	        height: 200px;</div><div class="line">	        background: #fcc;</div><div class="line">	    &#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;aside&quot;&gt;aside&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;main&quot;&gt;main为什么没有被aside遮盖？？？？？&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://i.imgur.com/Rk66Kje.png" alt=""><br>于是又查了些资料</p>
-<ul>
-<li><p>浮动的目的。最初时，浮动只能用于图像（某些浏览器还支持表的浮动），目的就是为了允许其他内容（如文本）“围绕”该图像。而后来的CSS允许浮动任何元素。 </p>
-</li>
-<li><p>绝对定位是将元素彻底从文档流删除，并相对于其包含块定位（包含块可能是文档中的另一个元素或者是初始包含块），元素原先在正常文档流中所占的空间会关闭，就好像该元素原来不存在一样，该元素再也不会影响其他元素的布局了。</p>
-</li>
-<li><p>而浮动，会以某种方式将浮动元素从文档的正常流中删除，并把浮动元素向左边和右边浮动，不过它还是会影响布局，浮动元素几乎“自成一派”，不过它们还是对文档的其余部分有影响。这种影响源自于这样一个事实：一个元素浮动时，其他内容会“环绕”该元素。</p>
-<blockquote>
-<p><a href="http://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html#3645923" target="_blank" rel="external">http://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html#3645923</a><br><a href="http://www.iyunlu.com/view/css-xhtml/55.html" target="_blank" rel="external">http://www.iyunlu.com/view/css-xhtml/55.html</a></p>
-</blockquote>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/27/由清除浮动引发对BFC的理解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-js获取ul中li的顺序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/27/js获取ul中li的顺序/">js获取ul中li的顺序</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/27/js获取ul中li的顺序/" class="archive-article-date">
-  	<time datetime="2017-03-27T02:13:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>用惯了jq，面试时突然用原生写出这个方法还一时没写出来，真的是罪过。<br>方法一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;index&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line"></div><div class="line">	&lt;/style&gt;</div><div class="line">	</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;ul id=&quot;lie&quot;&gt;</div><div class="line">		&lt;li&gt;1&lt;/li&gt;</div><div class="line">		&lt;li&gt;2&lt;/li&gt;</div><div class="line">		&lt;li&gt;3&lt;/li&gt;</div><div class="line">	&lt;/ul&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">		var items=document.getElementsByTagName(&apos;li&apos;);</div><div class="line">		for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">			items[i].addEventListener(&apos;click&apos;,function(n)&#123;</div><div class="line">				return function()&#123;</div><div class="line">					console.log(n)</div><div class="line">				&#125;			</div><div class="line">			&#125;(i))</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;index&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line"></div><div class="line">	&lt;/style&gt;</div><div class="line">	</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;ul id=&quot;lie&quot;&gt;</div><div class="line">		&lt;li&gt;1&lt;/li&gt;</div><div class="line">		&lt;li&gt;2&lt;/li&gt;</div><div class="line">		&lt;li&gt;3&lt;/li&gt;</div><div class="line">	&lt;/ul&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">		var items=document.getElementsByTagName(&apos;li&apos;);</div><div class="line">		for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">			items[i].onclick=function(n)&#123;</div><div class="line">				return function()&#123;</div><div class="line">					console.log(n)</div><div class="line">				&#125;			</div><div class="line">			&#125;(i)</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>方法二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;index&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line"></div><div class="line">	&lt;/style&gt;</div><div class="line">	</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;ul id=&quot;lie&quot;&gt;</div><div class="line">		&lt;li&gt;1&lt;/li&gt;</div><div class="line">		&lt;li&gt;2&lt;/li&gt;</div><div class="line">		&lt;li&gt;3&lt;/li&gt;</div><div class="line">	&lt;/ul&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">		var items=document.getElementsByTagName(&apos;li&apos;);</div><div class="line">		for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">			items[i].index=i</div><div class="line">			items[i].addEventListener(&apos;click&apos;,function()&#123;</div><div class="line">					console.log(this.index)		</div><div class="line">			&#125;)</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<p>方法三：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;index&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line"></div><div class="line">	&lt;/style&gt;</div><div class="line">	</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;ul id=&quot;lie&quot;&gt;</div><div class="line">		&lt;li&gt;1&lt;/li&gt;</div><div class="line">		&lt;li&gt;2&lt;/li&gt;</div><div class="line">		&lt;li&gt;3&lt;/li&gt;</div><div class="line">	&lt;/ul&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">		var items=document.getElementsByTagName(&apos;li&apos;);</div><div class="line">		for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">			let j=i;</div><div class="line">			items[i].addEventListener(&apos;click&apos;,function()&#123;</div><div class="line">					console.log(j)		</div><div class="line">			&#125;)</div><div class="line">		&#125;</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/27/js获取ul中li的顺序/">展开全文 >></a>
         </p>
       
 
