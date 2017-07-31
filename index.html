@@ -393,14 +393,99 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li><p>contains</p>
-<p>判断某一个节点是不是另一个节点的后代。调用contains()方法的应该是祖先节点，也就是搜索开始的节点，这个方法接收一个参数，即要检查的后代节点。如果是，返回true，否则，返回false。</p>
+        <h3 id="contains"><a href="#contains" class="headerlink" title="contains"></a>contains</h3><p>判断某一个节点是不是另一个节点的后代。调用contains()方法的应该是祖先节点，也就是搜索开始的节点，这个方法接收一个参数，即要检查的后代节点。如果是，返回true，否则，返回false。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//题目：查找两个节点的最近的一个共同父节点，可以包括节点自身</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">commonParentNode</span>(<span class="params">oNode1, oNode2</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(oNode1.contains(oNode2))&#123;</div><div class="line">        <span class="keyword">return</span> oNode1;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> commonParentNode(oNode1.parentNode,oNode2);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>compareDocumentPosition()也能确定节点间的关系</p>
-<p>| 1    | 无关   |<br>| —- | —- |<br>| 2    | 居前   |<br>| 4    | 居后   |<br>| 8    | 包含   |<br>| 16   | 被包含  |</p>
-</li>
-</ol>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>无关</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>居前</td>
+</tr>
+<tr>
+<td>4</td>
+<td>居后</td>
+</tr>
+<tr>
+<td>8</td>
+<td>包含</td>
+</tr>
+<tr>
+<td>16</td>
+<td>被包含</td>
+</tr>
+</tbody>
+</table>
+<h3 id="splice"><a href="#splice" class="headerlink" title="splice"></a>splice</h3><p>splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目。</p>
+<p>注释：该方法会改变原始数组。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。</td>
+</tr>
+<tr>
+<td>howmany</td>
+<td>必需。要删除的项目数量。如果设置为 0，则不会删除项目。</td>
+</tr>
+<tr>
+<td>item1, …, itemX</td>
+<td>可选。向数组添加的新项目。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="split"><a href="#split" class="headerlink" title="split"></a>split</h3><p>split() 方法用于把一个字符串分割成字符串数组。</p>
+<p>注释：该方法不会改变原始字符串。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>separator</td>
+<td>必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。</td>
+</tr>
+<tr>
+<td>howmany</td>
+<td>可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="substring"><a href="#substring" class="headerlink" title="substring"></a>substring</h3><p>substring() 方法用于提取字符串中介于两个指定下标之间的字符。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>start</em></td>
+<td>必需。一个非负的整数，规定要提取的子串的第一个字符在 stringObject 中的位置。</td>
+</tr>
+<tr>
+<td><em>stop</em></td>
+<td>可选。一个非负的整数，比要提取的子串的最后一个字符在 stringObject 中的位置多 1。如果省略该参数，那么返回的子串会一直到字符串的结尾。</td>
+</tr>
+</tbody>
+</table>
+<p>返回一个新的字符串，该字符串值包含 <em>stringObject</em> 的一个子字符串，其内容是从 <em>start</em> 处到 <em>stop</em>-1 处的所有字符，其长度为 <em>stop</em>减 <em>start</em>。</p>
 
       
 
@@ -1009,11 +1094,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color4">小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
             
             <div class="clearfix"></div>
