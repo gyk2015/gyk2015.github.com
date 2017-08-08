@@ -149,74 +149,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Unicode和UTF-8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/17/Unicode和UTF-8/">Unicode和UTF-8</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/17/Unicode和UTF-8/" class="archive-article-date">
-  	<time datetime="2017-02-17T09:03:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>ASCII码<br>1字节（byte）=8位（bit），8位可以组合256种状态。<br><strong>上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为ASCII码，一直沿用至今。</strong><br>ASCII码一共规定了128个字符的编码，比如空格”SPACE”是32（二进制00100000），大写的字母A是65（二进制01000001）。这128个符号（包括32个不能打印出来的控制符号），<strong>只占用了一个字节的后面7位，最前面的1位统一规定为0。</strong></li>
-<li>非ASCII编码<br>英语用128个符号编码就够了，但是用来表示其他语言，128个符号是不够的。于是，一些欧洲国家就决定，利用字节中闲置的最高位编入新的符号。可以表示最多256个符号。<br>但是，不同的国家有不同的字母，因此，哪怕它们都使用256个符号的编码方式，代表的字母却不一样。但是不管怎样，所有这些编码方式中，0–127表示的符号是一样的，不一样的只是128–255的这一段。<br>至于亚洲国家的文字，使用的符号就更多了，汉字就多达10万左右。一个字节只能表示256种符号，肯定是不够的，就必须使用多个字节表达一个符号。比如，简体中文常见的编码方式是GB2312，使用两个字节表示一个汉字，所以理论上最多可以表示256x256=65536个符号。</li>
-<li>Unicode<br><strong>有一种编码，将世界上所有的符号都纳入其中，每一个符号都给予一个独一无二的编码，这就是Unicode。</strong>Unicode是一个很大的集合，现在的规模可以容纳100多万个符号。</li>
-<li>Unicode的问题<br>需要注意的是，Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。<br>比如，汉字”严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。<br>这里就有两个严重的问题，第一个问题是，如何才能区别Unicode和ASCII？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果Unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。<br>它们造成的结果是：1）出现了Unicode的多种存储方式，也就是说有许多种不同的二进制格式，可以用来表示Unicode。2）Unicode在很长一段时间内无法推广，直到互联网的出现。</li>
-<li>UTF-8<br>互联网的普及，强烈要求出现一种统一的编码方式。UTF-8就是在互联网上使用最广的一种Unicode的实现方式。其他实现方式还包括UTF-16（字符用两个字节或四个字节表示）和UTF-32（字符用四个字节表示），不过在互联网上基本不用。重复一遍，这里的关系是，<strong>UTF-8是Unicode的实现方式之一。</strong><br>UTF-8最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。<br>UTF-8的编码规则很简单，只有二条：<br>1）对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。<br>2）对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。<br>下表总结了编码规则，字母x表示可用编码的位。<br>Unicode符号范围 | UTF-8编码方式<br>(十六进制) | （二进制）<br>——————–+———————————————<br>0000 0000-0000 007F | 0xxxxxxx<br>0000 0080-0000 07FF | 110xxxxx 10xxxxxx<br>0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx<br>0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx<br>跟据上表，解读UTF-8编码非常简单。如果一个字节的第一位是0，则这个字节单独就是一个字符；如果第一位是1，则连续有多少个1，就表示当前字符占用多少个字节。<blockquote>
-<p>参考自<a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a></p>
-</blockquote>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/17/Unicode和UTF-8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
     <article id="post-Linux" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -532,7 +464,47 @@
 </ol>
 <h2 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>) &#123;</div><div class="line">  <span class="keyword">var</span> color = <span class="string">'red'</span>;</div><div class="line">&#125;</div><div class="line">alert(color);<span class="comment">//'red'</span></div></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">  dosomething(i);</div><div class="line">&#125;</div><div class="line">alert(i);<span class="comment">//10</span></div></pre></td></tr></table></figure>
-<p>   ​</p>
+<h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>文档节点是每个文档的根节点。文档节点只有一个子节点，即<html>元素，称之为文档元素。文档元素是文档的最外层元素，文档中的其他所有元素都包含在文档元素中。每个文档只能有一个文档元素。</html></p>
+<p>每一段标记都可以通过树中的一个节点来表示，总共有12种节点类型，这些类型都继承自一个基类型。</p>
+<h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3><p>DOM1级定义了一个Node接口，该接口将由DOM中的所有节点类型实现。这个Node接口在<br>JavaScript 中是作为Node 类型实现的；除了IE 之外，在其他所有浏览器中都可以访问到这个类型。JavaScript中的所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(someNode.nodeType == <span class="number">1</span>) &#123;<span class="comment">//适用于所以浏览器</span></div><div class="line">  <span class="comment">//element</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于元素节点，nodeName中保存的始终都是元素的标签名，而nodeValue的值则始终为null。</p>
+<p>每个节点都有一个childNodes属性，其中保存着一个NodeList对象。NodeList是一种类数组对象，用于保存一组有序的节点，可以通过位置来访问这些节点。它并不是Array的实例。NodeList对象是基于DOM结构动态执行查询的结果，因此DOM结构的变化能够自动反映在NodeList对象中。</p>
+<p>将NodeList对象转换为数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">convertToArray</span>(<span class="params">nodes</span>)</span>&#123; </div><div class="line">  <span class="keyword">var</span> array = <span class="literal">null</span>; </div><div class="line">  <span class="keyword">try</span> &#123; </div><div class="line">  	array = <span class="built_in">Array</span>.prototype.slice.call(nodes, <span class="number">0</span>); <span class="comment">//针对非IE浏览器</span></div><div class="line">  &#125; <span class="keyword">catch</span> (ex) &#123; </div><div class="line">  	array = <span class="keyword">new</span> <span class="built_in">Array</span>(); </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>, len=nodes.length; i &lt; len; i++)&#123; </div><div class="line">    	array.push(nodes[i]); </div><div class="line">    &#125; </div><div class="line">  &#125; </div><div class="line">  <span class="keyword">return</span> array; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>parentNode属性，该属性指向文档树中的父节点。包含在childNodes列表中的所有节点都具有相同的父节点，因此它们的parentNode 属性都指向同一个节点。</p>
+<p>previousSibling指向前一个兄弟节点。<br> nextSibling指向后一个兄弟节点。</p>
+<p>列表中第一个节点的previousSibling属性值为null，而列表中最后一个节点的nextSibling属性的值同样也为null。</p>
+<p>firstChild和lastChild属性分别指向其childNodes列表中的第一个和最后一个节点。如果没有子节点，那么firstChild和lastChild的值均为null。</p>
+<p>hasChildNodes()，这个方法在节点包含一或多个子节点的情况下返回true。</p>
+<p>ownerDocument，该属性指向表示整个文档的文档节点。这种关系表示的是任何节点都属于它所在的文档，任何节点都不能同时存在于两个或更多个文档中。</p>
+<p>appendChild()，用于向childNodes列表的末尾添加一个节点。如果传入到appendChild()中的节点已经是文档的一部分了，那结果就是将该节点从原来的位置转移到新位置。</p>
+<p>insertBefore()方法。这个方法接受两个参数：要插入的节点和作为参照的节点。插入节点后，被插入的节点会变成参照节点的前一个同胞节点（previousSibling），同时被方法返回。如果参照节点是null，则insertBefore()与appendChild()执行相同的操作。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">returnedNode = someNode.insertBefore(newNode,<span class="literal">null</span>);</div><div class="line">newNode == someNode.lastChild;<span class="comment">//true</span></div><div class="line"></div><div class="line">returnedNode = someNode.insertBefore(newNode,someNode.firstChild);</div><div class="line">newNode == someNode.firstChild;<span class="comment">//true</span></div></pre></td></tr></table></figure>
+<p>replaceChild()方法接受的两个参数是：要插入的节点和要替换的节点。要替换的节点将由这个方法返回并从文档树中被移除，同时由要插入的节点占据其位置。</p>
+<p>removeChild()方法。这个方法接受一个参数，即要移除的节点。被移除的节点将成为方法的返回值。</p>
+<p>cloneNode()，用于创建调用这个方法的节点的一个完全相同的副本。</p>
+<p>cloneNode()方法接受一个布尔值参数，表示是否执行深复制。在参数为true的情况下，执行深复制，也就是复制节点及其整个子节点树；在参数为false的情况下，执行浅复制，即只复制节点本身。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> deepList = myList.cloneNode(<span class="literal">true</span>); </div><div class="line">alert(deepList.childNodes.length); <span class="comment">//3（IE &lt; 9）或7（其他浏览器）</span></div><div class="line"><span class="keyword">var</span> shallowList = myList.cloneNode(<span class="literal">false</span>); </div><div class="line">alert(shallowList.childNodes.length);  <span class="comment">//0</span></div></pre></td></tr></table></figure>
+<p>cloneNode()方法不会复制添加到DOM节点中的JavaScript属性，例如事件处理程序等。这个方法只复制特性、（在明确指定的情况下也复制）子节点，其他一切都不会复制。</p>
+<h3 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3><p>documentElement属性，该属性始终指向HTML页面中的<html>元素。</html></p>
+<p>childNodes列表访问文档元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> html = <span class="built_in">document</span>.documentElement;  <span class="comment">//取得对&lt;html&gt;的引用</span></div><div class="line">alert(html === <span class="built_in">document</span>.childNodes[<span class="number">0</span>]); <span class="comment">//true </span></div><div class="line">alert(html === <span class="built_in">document</span>.firstChild);  <span class="comment">//true</span></div></pre></td></tr></table></figure>
+<p>document.body属性，直接指向<body>元素。</body></p>
+<p>要想取得文档中的所有元素，可以向getElementsByTagName()中传入”*”。</p>
+<p>在JavaScript及CSS中，星号（*）通常表示“全部”。</p>
+<p>write()和writeln()方法都接受一个字符串参数，即要写入到输出流中的文本。write()会原样写入，而writeln()则会在字符串的末尾添加一个换行符（\n）。</p>
+<h3 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h3><p>要访问元素的标签名，可以使用nodeName属性，也可以使用tagName属性；这两个属性会返回相同的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>); </div><div class="line">alert(div.id);  <span class="comment">//"myDiv"" </span></div><div class="line">alert(div.className); <span class="comment">//"bd" </span></div><div class="line">alert(div.title);  <span class="comment">//"Body text" </span></div><div class="line">alert(div.lang);  <span class="comment">//"en" </span></div><div class="line">alert(div.dir);  <span class="comment">//"ltr"</span></div></pre></td></tr></table></figure>
+<p>getAttribute()、setAttribute()和removeAttribute()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>); </div><div class="line">alert(div.getAttribute(<span class="string">"id"</span>)); <span class="comment">//"myDiv" </span></div><div class="line">alert(div.getAttribute(<span class="string">"class"</span>)); <span class="comment">//"bd" </span></div><div class="line">alert(div.getAttribute(<span class="string">"title"</span>)); <span class="comment">//"Body text" </span></div><div class="line">alert(div.getAttribute(<span class="string">"lang"</span>)); <span class="comment">//"en" </span></div><div class="line">alert(div.getAttribute(<span class="string">"dir"</span>)); <span class="comment">//"ltr"</span></div></pre></td></tr></table></figure>
+<p>通过getAttribute()方法也可以取得自定义特性（即标准HTML语言中没有的特性）的值。</p>
+<p>有两类特殊的特性，它们虽然有对应的属性名，但属性的值与通过getAttribute()返回的值并不相同。</p>
+<p>第一类特性就是style，用于通过CSS为元素指定样式。在通过getAttribute()访问时，返回的style特性值中包含的是CSS文本，而通过属性来访问它则会返回一个对象。由于style属性是用于以编程方式访问元素样式的（本章后面讨论），因此并没有直接映射到style特性。</p>
+<p>第二类与众不同的特性是onclick这样的事件处程序。当在元素上使用时，onclick特性中包含的是JavaScript 代码，如果通过getAttribute()访问，则会返回相应代码的字符串。而在访问onclick属性时，则会返回一个JavaScript函数（如果未在元素中指定相应特性，则返回null）。这是因为onclick及其他事件处理程序属性本身就应该被赋予函数值。</p>
+<p>经常不使用getAttri- bute()，而是只使用对象的属性。只有在取得自定义特性值的情况下，才会使用getAttribute()方法。</p>
+<p>setAttribute()，这个方法接受两个参数：要设置的特性名和值。如果特性已经存在，setAttribute()会以指定的值替换现有的值；如果特性不存在，setAttribute()则创建该属性并设置相应的值。</p>
 
       
 
