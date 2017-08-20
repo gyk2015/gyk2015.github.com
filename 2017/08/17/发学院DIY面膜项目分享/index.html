@@ -6,27 +6,41 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>闭包 | YiK</title>
+  <title>发学院DIY面膜项目分享 | YiK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="立即执行函数
+  <meta name="description" content="今年上半年做了一个“发学院”的衍生项目“DIY面膜”，涉及到移动端滑动、点透等许多坑，经过一段时间的沉淀，自己对问题的解决有了更多的认识，现在总结下并拿出来分享下。
+公众号
 
+实现的效果是：通过滑动屏幕，选择面膜配料，最后下单，制作DIY面膜。
 
-函数声明、函数表达式、匿名函数函数声明：function fnName () {…};使用function关键字声明一个函数，再指定一个函数名，叫函数声明。函数表达式 var fnName = function () {…};使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式，这是最常见的函数表达式语法形式。匿名函数：functio">
+如何实现滑动？网上有很多滑动的插件，比如“Swiper”等等。但是既然作为一个学生，通过项目有所提升才是重点，所以决定自己来实现滑动效果，虽然动画效果没">
 <meta property="og:type" content="article">
-<meta property="og:title" content="闭包">
-<meta property="og:url" content="http://yoursite.com/2017/03/06/闭包/index.html">
+<meta property="og:title" content="发学院DIY面膜项目分享">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/发学院DIY面膜项目分享/index.html">
 <meta property="og:site_name" content="YiK">
-<meta property="og:description" content="立即执行函数
+<meta property="og:description" content="今年上半年做了一个“发学院”的衍生项目“DIY面膜”，涉及到移动端滑动、点透等许多坑，经过一段时间的沉淀，自己对问题的解决有了更多的认识，现在总结下并拿出来分享下。
+公众号
 
+实现的效果是：通过滑动屏幕，选择面膜配料，最后下单，制作DIY面膜。
 
-函数声明、函数表达式、匿名函数函数声明：function fnName () {…};使用function关键字声明一个函数，再指定一个函数名，叫函数声明。函数表达式 var fnName = function () {…};使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式，这是最常见的函数表达式语法形式。匿名函数：functio">
-<meta property="og:updated_time" content="2017-03-06T09:52:05.311Z">
+如何实现滑动？网上有很多滑动的插件，比如“Swiper”等等。但是既然作为一个学生，通过项目有所提升才是重点，所以决定自己来实现滑动效果，虽然动画效果没">
+<meta property="og:image" content="http://outp8j7os.bkt.clouddn.com/221218194794552250.jpg">
+<meta property="og:image" content="http://outp8j7os.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170817180230.jpg">
+<meta property="og:image" content="http://outp8j7os.bkt.clouddn.com/1502973665%281%29.jpg">
+<meta property="og:image" content="http://outp8j7os.bkt.clouddn.com/343310099445060695.png">
+<meta property="og:image" content="http://outp8j7os.bkt.clouddn.com/1503037069%281%29.jpg">
+<meta property="og:image" content="http://outp8j7os.bkt.clouddn.com/1503037052%281%29.jpg">
+<meta property="og:image" content="http://outp8j7os.bkt.clouddn.com/1503041170%281%29.jpg">
+<meta property="og:updated_time" content="2017-08-20T07:51:26.265Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="闭包">
-<meta name="twitter:description" content="立即执行函数
+<meta name="twitter:title" content="发学院DIY面膜项目分享">
+<meta name="twitter:description" content="今年上半年做了一个“发学院”的衍生项目“DIY面膜”，涉及到移动端滑动、点透等许多坑，经过一段时间的沉淀，自己对问题的解决有了更多的认识，现在总结下并拿出来分享下。
+公众号
 
+实现的效果是：通过滑动屏幕，选择面膜配料，最后下单，制作DIY面膜。
 
-函数声明、函数表达式、匿名函数函数声明：function fnName () {…};使用function关键字声明一个函数，再指定一个函数名，叫函数声明。函数表达式 var fnName = function () {…};使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式，这是最常见的函数表达式语法形式。匿名函数：functio">
+如何实现滑动？网上有很多滑动的插件，比如“Swiper”等等。但是既然作为一个学生，通过项目有所提升才是重点，所以决定自己来实现滑动效果，虽然动画效果没">
+<meta name="twitter:image" content="http://outp8j7os.bkt.clouddn.com/221218194794552250.jpg">
   
     <link rel="alternative" href="/atom.xml" title="YiK" type="application/atom+xml">
   
@@ -160,41 +174,115 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="w-闭包" class="article article-type-w " itemscope itemprop="blogPost">
+            <article id="post-发学院DIY面膜项目分享" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      闭包
+      发学院DIY面膜项目分享
     </h1>
   
 
         
-        <a href="/2017/03/06/闭包/" class="archive-article-date">
-  	<time datetime="2017-03-06T09:35:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
+        <a href="/2017/08/17/发学院DIY面膜项目分享/" class="archive-article-date">
+  	<time datetime="2017-08-17T09:25:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li>立即执行函数</li>
-</ol>
+        <p>今年上半年做了一个“发学院”的衍生项目“DIY面膜”，涉及到移动端滑动、点透等许多坑，经过一段时间的沉淀，自己对问题的解决有了更多的认识，现在总结下并拿出来分享下。</p>
+<p>公众号</p>
+<p><img src="http://outp8j7os.bkt.clouddn.com/221218194794552250.jpg" alt=""></p>
+<p>实现的效果是：通过滑动屏幕，选择面膜配料，最后下单，制作DIY面膜。</p>
+<p><img src="http://outp8j7os.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170817180230.jpg" alt=""></p>
+<h4 id="如何实现滑动？"><a href="#如何实现滑动？" class="headerlink" title="如何实现滑动？"></a>如何实现滑动？</h4><p>网上有很多滑动的插件，比如“Swiper”等等。但是既然作为一个学生，通过项目有所提升才是重点，所以决定自己来实现滑动效果，虽然动画效果没有插件来的好。</p>
+<p>项目中代码写的比较杂，后面用vue对滑动单独抽取出来，放在<a href="https://github.com/gyk2015/scrollAct上。现在对这个进行下总结。" target="_blank" rel="external">https://github.com/gyk2015/scrollAct上。现在对这个进行下总结。</a></p>
+<p>srcollDemo.vue是滑动组件，引入组件，设置isVertical（true为垂直滑动，false为水平滑动）。</p>
+<p>使用方式如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">//App.vue</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div id="app"&gt;</div><div class="line">    &lt;scrollDemo :isVertical='false'&gt;</div><div class="line">      &lt;div class="container"&gt;1&lt;/div&gt;</div><div class="line">      &lt;div class="container"&gt;2&lt;/div&gt;</div><div class="line">      &lt;div class="container"&gt;3&lt;/div&gt;</div><div class="line">    &lt;/scrollDemo&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">import scrollDemo from './components/scrollDemo'</div><div class="line">export default &#123;</div><div class="line">  name: 'app',</div><div class="line">  components: &#123;</div><div class="line">    scrollDemo</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>现在说说scrollDemo.vue里的代码</p>
+<p>首先，利用slot来分发内容，并且设置好样式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">	&lt;div class="scrollDemo"&gt;</div><div class="line">		&lt;slot&gt;</div><div class="line">	    	&lt;div class="container"&gt;欢迎使用&lt;/div&gt;</div><div class="line">            //等同于</div><div class="line">            //&lt;div class="container"&gt;1&lt;/div&gt;</div><div class="line">      		//&lt;div class="container"&gt;2&lt;/div&gt;</div><div class="line">      		//&lt;div class="container"&gt;3&lt;/div&gt;</div><div class="line">	  	&lt;/slot&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;style scoped&gt;</div><div class="line">	.scrollDemo &#123;</div><div class="line">		height: 100%;</div><div class="line">		width: 100%;</div><div class="line">		position: relative;</div><div class="line">		transform:translate3d(0,0,0);</div><div class="line">		-webkit-transform:translate3d(0,0,0);</div><div class="line">		-moz-transform:translate3d(0,0,0);</div><div class="line">		-o-transform:translate3d(0,0,0);</div><div class="line">		-ms-transform:translate3d(0,0,0);</div><div class="line">	&#125;</div><div class="line">	.container &#123;</div><div class="line">		width: 100%;</div><div class="line">		height: 100%;</div><div class="line">		position: absolute;</div><div class="line">	&#125;	</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<p> transform可以实现元素转换（translate）、旋转（rotate）、缩放（scale）、倾斜（skew）。</p>
+<p>可以将srcollDemo看做是蓝色方框构成的长页面，红色方框为浏览器界面，每次滑动，移动整个srcollDemo的位置，达到显示不同界面的效果。</p>
+<p><code>translate3d(0,0,0)</code>定义初始位置，3d可开启GPU硬件加速。</p>
+<p><img src="http://outp8j7os.bkt.clouddn.com/1502973665%281%29.jpg" alt=""></p>
+<p>通过<code>initPosition()</code>方法，根据<code>isVertical</code>判断是横向还是纵向排列，初始化每个container的位置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">mounted: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  		<span class="keyword">this</span>.initPosition();</div><div class="line">&#125;,</div><div class="line"><span class="attr">methods</span>: &#123;</div><div class="line">	initPosition() &#123;</div><div class="line">		<span class="keyword">let</span> els = <span class="built_in">document</span>.querySelector(<span class="string">'.scrollDemo'</span>).querySelectorAll(<span class="string">'.container'</span>);</div><div class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.isVertical) &#123;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i &lt; els.length;i ++) &#123;</div><div class="line">				els[i].style.top = i*<span class="number">100</span> + <span class="string">'%'</span>;</div><div class="line">				els[i].style.left = <span class="number">0</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i &lt; els.length;i ++) &#123;</div><div class="line">				els[i].style.left = i*<span class="number">100</span> + <span class="string">'%'</span>;</div><div class="line">				els[i].style.top = <span class="number">0</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接着开始添加滑动相关代码</p>
+<p>首先定义一个<code>addSroll()</code>方法，定义”touchstart”、”touchmove”、”touchend”事件。</p>
+<p>在<code>startEvtHandler()</code>中获取<code>point_start</code> ，即手指刚按下的位置；</p>
+<p>在<code>moveEvtHandler()</code>中获取point_end，这里有个根据滑动方向来判断是否触发event.preventDefault()，后面再提及；</p>
+<p>在<code>endEvtHandler()</code>中根据滑动距离以及滑动方向来判断是否触发滑动效果。</p>
+<p><code>scorllAction()</code>负责滑动效果处理，如果是纵向滑动，则修改translateY，否则修改translateX。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">addSroll(e,page,pageNum) &#123;</div><div class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span>;</div><div class="line">  <span class="keyword">var</span> touch = e;</div><div class="line">  <span class="keyword">var</span> SWIPE_DISTANCE = <span class="built_in">document</span>.body.clientWidth/<span class="number">4</span>;</div><div class="line">  <span class="keyword">var</span> point_start,point_end;</div><div class="line">  <span class="comment">//计算两点之间距离</span></div><div class="line">  <span class="keyword">var</span> getDist = <span class="function"><span class="keyword">function</span>(<span class="params">p1 , p2</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(!p1 || !p2) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//获取touch的点(兼容mouse事件)</span></div><div class="line">  <span class="keyword">var</span> getTouchPos = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> touches = e.touches;</div><div class="line">    <span class="keyword">if</span>(touches &amp;&amp; touches[<span class="number">0</span>]) &#123;</div><div class="line">      <span class="keyword">return</span> &#123; <span class="attr">x</span> : touches[<span class="number">0</span>].clientX ,<span class="attr">y</span> : touches[<span class="number">0</span>].clientY &#125;;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//鼠标点击</span></div><div class="line">    <span class="keyword">return</span> &#123; <span class="attr">x</span> : e.clientX , <span class="attr">y</span>: e.clientY &#125;;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//获取swipe的方向</span></div><div class="line">  <span class="keyword">var</span> getSwipeDirection = <span class="function"><span class="keyword">function</span>(<span class="params">p2,p1</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> dx = p2.x - p1.x;</div><div class="line">    <span class="keyword">var</span> dy = -p2.y + p1.y;    </div><div class="line">    <span class="keyword">var</span> angle = <span class="built_in">Math</span>.atan2(dy , dx) * <span class="number">180</span> / <span class="built_in">Math</span>.PI;</div><div class="line">    <span class="keyword">if</span>(_this.isVertical == <span class="literal">true</span>) &#123;</div><div class="line">      <span class="keyword">if</span>(angle &lt; <span class="number">45</span> &amp;&amp; angle &gt; <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">45</span> &amp;&amp; angle &lt; <span class="number">135</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">135</span> || angle &lt; <span class="number">-135</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">-135</span> &amp;&amp; angle &lt;= <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">if</span>(angle &lt; <span class="number">45</span> &amp;&amp; angle &gt; <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">45</span> &amp;&amp; angle &lt; <span class="number">135</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">135</span> || angle &lt; <span class="number">-135</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">-135</span> &amp;&amp; angle &lt;= <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">var</span> scorllAction = <span class="function"><span class="keyword">function</span>(<span class="params">dvalue</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(dvalue &gt; <span class="number">0</span>)&#123;</div><div class="line">      <span class="keyword">if</span>(page &lt; pageNum) &#123;</div><div class="line">        <span class="keyword">if</span>(_this.isVertical) &#123;</div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">'.scrollDemo'</span>).style.transform = <span class="string">"translateY(-"</span>+page*<span class="number">100</span>+<span class="string">"%"</span>+<span class="string">")"</span>  </div><div class="line">        &#125;<span class="keyword">else</span> &#123; </div><div class="line">      <span class="built_in">document</span>.querySelector(<span class="string">'.scrollDemo'</span>).style.transform = <span class="string">"translateX(-"</span>+page*<span class="number">100</span>+<span class="string">"%"</span>+<span class="string">")"</span> </div><div class="line">      	&#125;</div><div class="line">  	  &#125;</div><div class="line">   &#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="keyword">if</span>(_this.isVertical) &#123;</div><div class="line">      <span class="built_in">document</span>.querySelector(<span class="string">'.scrollDemo'</span>).style.transform = <span class="string">"translateY(-"</span>+(page<span class="number">-2</span>)*<span class="number">100</span>+<span class="string">"%"</span>+<span class="string">")"</span></div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">      <span class="built_in">document</span>.querySelector(<span class="string">'.scrollDemo'</span>).style.transform = <span class="string">"translateX(-"</span>+(page<span class="number">-2</span>)*<span class="number">100</span>+<span class="string">"%"</span>+<span class="string">")"</span> </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> startEvtHandler = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">    point_start = getTouchPos(e);</div><div class="line">  	<span class="comment">// event.preventDefault();</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">var</span> moveEvtHandler = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">    point_end = getTouchPos(e);</div><div class="line">    <span class="keyword">if</span>(getSwipeDirection(point_start,point_end)) &#123;</div><div class="line">    	event.preventDefault();  </div><div class="line">    &#125;    </div><div class="line">  &#125;</div><div class="line">  <span class="keyword">var</span> endEvtHandler = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; </div><div class="line">    <span class="keyword">if</span>(getDist(point_start,point_end) &gt; SWIPE_DISTANCE &amp;&amp; getSwipeDirection(point_start,point_end))&#123;</div><div class="line">    <span class="keyword">if</span>(_this.isVertical) &#123;</div><div class="line">      scorllAction(point_start.y - point_end.y);</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">      scorllAction(point_start.x - point_end.x);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">    point_start=<span class="number">0</span>;</div><div class="line">    point_end=<span class="number">0</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> startEvt, moveEvt, endEvt;</div><div class="line">  startEvt=<span class="string">"touchstart"</span>;</div><div class="line">  moveEvt=<span class="string">"touchmove"</span>;</div><div class="line">  endEvt=<span class="string">"touchend"</span>;</div><div class="line">  </div><div class="line">  touch.addEventListener(startEvt, startEvtHandler);</div><div class="line">  touch.addEventListener(moveEvt, moveEvtHandler);</div><div class="line">  touch.addEventListener(endEvt, endEvtHandler);           </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="滑动带来的bug"><a href="#滑动带来的bug" class="headerlink" title="滑动带来的bug"></a>滑动带来的bug</h3><p>前面提及在<code>moveEvtHandler()</code>中有event.preventDefault()，为什么要写这个呢？</p>
+<p>因为在QQ和微信中打开网页，发现touchmove只会触发一次，而且touchend也经常不触发，导致页面不能正常的滑动。网上给出的解释是：</p>
+<p>“原因是由于200ms超时导致内核不一定会一直处理touchmove事件，一旦超时会将后续所有的事件转交给UI处理，导致touchmove不会一直触发。为了解决开发者需要，建议开发者在touchstart时调用event.preventDefault，这样就可以保证内核会一起触发touchmove事件了。”</p>
+<p>这么做可以解决滑动经常失效的问题，但是会导致点击事件被禁止了。</p>
+<p>经过查资料和自己做了个demo折腾，发现当触摸时，会依次触发：</p>
+<p><strong>touchstart→touchmove→touchend或者touchstart→touchend→click。</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;div class="container"&gt;1&lt;div class="box"&gt;&lt;/div&gt;&lt;div class="box2"&gt;&lt;/div&gt;&lt;/div&gt;</div><div class="line">&lt;div class="container"&gt;2&lt;/div&gt;</div><div class="line">&lt;div class="container"&gt;3&lt;/div&gt;</div><div class="line"></div><div class="line"></div><div class="line">document.querySelector("#app").addEventListener('touchstart',function(e)&#123;</div><div class="line">        document.querySelector(".box").style.background = 'blue';</div><div class="line">        e.preventDefault();</div><div class="line">        console.log('touchstart')</div><div class="line">&#125;)</div><div class="line">document.querySelector("#app").addEventListener('touchmove',function()&#123;</div><div class="line">        document.querySelector(".box").style.background = 'green';</div><div class="line">        console.log('touchmove')</div><div class="line">&#125;)</div><div class="line">document.querySelector("#app").addEventListener('touchend',function()&#123;</div><div class="line">        document.querySelector(".box").style.background = 'yellow';</div><div class="line">        console.log('touchend')</div><div class="line">&#125;)</div><div class="line">document.querySelector("#app").addEventListener('click',function()&#123;</div><div class="line">        document.querySelector(".box").style.background = 'red';</div><div class="line">        console.log('click')</div><div class="line">&#125;)</div><div class="line">document.querySelector(".box2").addEventListener('touchstart',function()&#123;</div><div class="line">        // alert('我被点击了')</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><img src="http://outp8j7os.bkt.clouddn.com/343310099445060695.png" alt=""></p>
+<p><img src="http://outp8j7os.bkt.clouddn.com/1503037069%281%29.jpg" alt=""></p>
+<p><img src="http://outp8j7os.bkt.clouddn.com/1503037052%281%29.jpg" alt=""></p>
+<p>添加了event.preventDefault()，会触发touchstart和touchend，但是click没有触发。</p>
+<p>解决的办法：一是将click换成touchstart；二是将event.preventDefault()移动到touchmove中。</p>
+<p>第一种方法可以完美解决。</p>
+<p>第二种方法会带来新的问题：页面的滚动效果被禁止了。</p>
+<p>原因是touchmove中添加event.preventDefault方法之后会阻止浏览器默认的滚动。</p>
+<p>于是又查了资料，找到了一个解决办法….</p>
+<p>根据滑动方向判断是否触发event.preventDefault()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> moveEvtHandler = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">    point_end = getTouchPos(e);</div><div class="line">    <span class="keyword">if</span>(getSwipeDirection(point_start,point_end)) &#123;</div><div class="line">    	event.preventDefault();  </div><div class="line">    &#125;    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//获取swipe的方向</span></div><div class="line"><span class="keyword">var</span> getSwipeDirection = <span class="function"><span class="keyword">function</span>(<span class="params">p2,p1</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> dx = p2.x - p1.x;</div><div class="line">    <span class="keyword">var</span> dy = -p2.y + p1.y;    </div><div class="line">    <span class="keyword">var</span> angle = <span class="built_in">Math</span>.atan2(dy , dx) * <span class="number">180</span> / <span class="built_in">Math</span>.PI;</div><div class="line">    <span class="keyword">if</span>(_this.isVertical == <span class="literal">true</span>) &#123;</div><div class="line">      <span class="keyword">if</span>(angle &lt; <span class="number">45</span> &amp;&amp; angle &gt; <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">45</span> &amp;&amp; angle &lt; <span class="number">135</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">135</span> || angle &lt; <span class="number">-135</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">-135</span> &amp;&amp; angle &lt;= <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">if</span>(angle &lt; <span class="number">45</span> &amp;&amp; angle &gt; <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">45</span> &amp;&amp; angle &lt; <span class="number">135</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">135</span> || angle &lt; <span class="number">-135</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">      <span class="keyword">if</span>(angle &gt;= <span class="number">-135</span> &amp;&amp; angle &lt;= <span class="number">-45</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当是水平滑动时，小于45度大于-45度时，大于135度小于-135度时触发，垂直方向则相反。</p>
+<p>至此解决滑动以及滑动带来的bug。</p>
+<h3 id="奇怪的点透"><a href="#奇怪的点透" class="headerlink" title="奇怪的点透"></a>奇怪的点透</h3><p><img src="http://outp8j7os.bkt.clouddn.com/1503041170%281%29.jpg" alt=""></p>
+<p>点透问题是这个项目遇见的另外一个坑，什么是点透？上面的弹出层，当我选完后点击“确定”，这时会把原页面中的选项一起点击了。</p>
+<p>为什么会发生点透？</p>
+<p>假设有两个DIV，A和B。B层在A层上方，为A层添加click，B层添加touch，点击B层，B层消失，由于移动端触摸会依次执行touchstart - touchend - click，B层消失后，click事件可能才被触发，此时A层会被点击。就发生了点透。</p>
+<p>解决点透的方法</p>
 <ul>
-<li>函数声明、函数表达式、匿名函数<br>函数声明：function fnName () {…};使用function关键字声明一个函数，再指定一个函数名，叫函数声明。<br>函数表达式 var fnName = function () {…};使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式，这是最常见的函数表达式语法形式。<br>匿名函数：function () {}; 使用function关键字声明一个函数，但未给函数命名，所以叫匿名函数，匿名函数属于函数表达式。</li>
-<li><p>立即执行函数的几种写法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(function()&#123;alert(1);&#125;()); </div><div class="line">(function()&#123;alert(1);&#125;)(); </div><div class="line">!function()&#123;alert(1);&#125;(); </div><div class="line">void function()&#123;alert(2);&#125;();</div></pre></td></tr></table></figure>
-</li>
-<li><p>立即执行函数好处<br>立即执行函数模式被广泛使用，它可以帮你封装大量的工作而不会在背后遗留任何全局变量。<br>定义的所有变量都会成为立即执行函数的局部变量，不用担心这些临时变量会污染全局空间。</p>
-</li>
+<li>统一用touch或者统一用click</li>
+<li>B层加event.preventDefault()，阻止默认行为</li>
+<li>引入fastclick</li>
+<li>引入zepto</li>
 </ul>
-<p>javascript中没用私有作用域的概念，如果在多人开发的项目上，你在全局或局部作用域中声明了一些变量，可能会被其他人不小心用同名的变量给覆盖掉，根据javascript函数作用域链的特性，可以使用这种技术可以模仿一个私有作用域，用匿名函数作为一个“容器”，“容器”内部可以访问外部的变量，而外部环境不能访问“容器”内部的变量，所以( function(){…} )()内部定义的变量不会和外部的变量发生冲突，俗称“匿名包裹器”或“命名空间”。</p>
-<ol>
-<li>闭包</li>
-</ol>
+<p>以上是查资料总结出来的，我以为问题应该可以解决了，然而我发现项目中我使用的都是click，照理说不应该出现问题。</p>
+<p>于是我又想会不会和移动端click有300ms延迟有什么关系？</p>
+<p>可是经过测试发现，click在项目中并没有出现300ms延迟，这是为什么？</p>
+<p>原来Chrome 32版本已经把这个延迟去掉了，如果有一个meta标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</div></pre></td></tr></table></figure>
+<p>即把viewport设置成设备的实际像素，那么就不会有这300ms的延迟，IE/Firefox/Safari(IOS 9.3)支持。</p>
+<p>如果设置initial-scale=1.0，在chrome上是可以生效，但是Safari不会</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1.0&quot;&gt;</div></pre></td></tr></table></figure>
+<p>第三种办法就是设置CSS：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">html&#123;</div><div class="line">    touch-action: manipulation;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Chrome和Safari都可以生效。</p>
+<p>而我在index.html上写了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;&gt;</div></pre></td></tr></table></figure>
+<p>所以在部分机型上没有延迟。</p>
+<p>但是为了更好的用户体验，还是引入fastclick。</p>
+<p>看起来和延迟没有什么关系，那为什么还会点透？</p>
+<p>在项目中</p>
+<p>我为上图的“确定”添加了如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;span onClick=&#123;this.confirm.bind(this)&#125;&gt;确定&lt;/span&gt;</div><div class="line"></div><div class="line">confirm()&#123;</div><div class="line">	//.....</div><div class="line">    document.getElementById(&quot;fmp3-model&quot;).style.display=&quot;none&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为下层选项添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var items=document.querySelectorAll(&quot;.fmp3-select-content&quot;)</div><div class="line">for(let i=0;i&lt;items.length-1;i++)&#123;</div><div class="line">	items[i].flag=false;</div><div class="line">	items[i].index=i</div><div class="line">	items[i].addEventListener(&quot;click&quot;,function(e)&#123; </div><div class="line">		//...</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我把”确定“代码改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;span id=&apos;aa&apos;&gt;确定&lt;/span&gt;</div><div class="line"></div><div class="line">document.getElementById(&apos;aa&apos;).addEventListener(&apos;click&apos;,function() &#123;</div><div class="line">    _this.confirm();</div><div class="line">&#125;)</div><div class="line"></div><div class="line">confirm()&#123;</div><div class="line">	//.....</div><div class="line">    document.getElementById(&quot;fmp3-model&quot;).style.display=&quot;none&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>点透问题便消失了。</p>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;span onClick=&#123;this.confirm.bind(this)&#125;&gt;确定&lt;/span&gt;</div><div class="line"></div><div class="line">confirm()&#123;</div><div class="line">	//.....</div><div class="line">    setTimeout(function()&#123;</div><div class="line">       document.getElementById(&quot;fmp3-model&quot;).style.display=&quot;none&quot;</div><div class="line">    &#125;,100)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>也可以解决问题。</p>
+<p>所以至于原因，至今没有搞明白。</p>
+<h3 id="字体库太大，如何解决？"><a href="#字体库太大，如何解决？" class="headerlink" title="字体库太大，如何解决？"></a>字体库太大，如何解决？</h3><p>页面中使用了一种很可爱的字体，娃娃体。要实现这种字体显示，需要引入一个字体库，可是整个字体库大小2.61MB，即使经过GZIP后，打开网页下载字体库也会导致很长的等待时间，这是不能忍受的。</p>
+<p>后来想想并不是每个字都要用到，只需要用到部分字体就足够了。所以经过百度，发现了一款很好用的工具，TTF字体库裁剪&amp;TTC转TTF字体工具。</p>
+<p>附上教程链接：<a href="http://bbs.iosre.com/t/ttf/1037" target="_blank" rel="external">http://bbs.iosre.com/t/ttf/1037</a></p>
+<p>工具链接：<a href="http://download.csdn.net/download/sunyday_1/5173425" target="_blank" rel="external">http://download.csdn.net/download/sunyday_1/5173425</a></p>
 
       
 
@@ -229,7 +317,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">项目分享</a>
         		</li>
       		
 		</ul>
@@ -285,7 +373,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/06/闭包/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/08/17/发学院DIY面膜项目分享/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -299,18 +387,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/09/JSON-parse、JSON-stringify和evel/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JSON.parse、JSON.stringify和evel
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/02/20/ES6/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ES6</div>
+    <a href="/2017/08/15/理解JavaScript运行机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">理解JavaScript运行机制</div>
       <i class="icon-circle-right"></i>
     </a>
   
