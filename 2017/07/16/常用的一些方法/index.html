@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="YiK">
 <meta property="og:description" content="contains判断某一个节点是不是另一个节点的后代。调用contains()方法的应该是祖先节点，也就是搜索开始的节点，这个方法接收一个参数，即要检查的后代节点。如果是，返回true，否则，返回false。
 12345678//题目：查找两个节点的最近的一个共同父节点，可以包括节点自身function commonParentNode(oNode1, oNode2) &amp;#123;    if(o">
-<meta property="og:updated_time" content="2017-08-09T06:45:13.937Z">
+<meta property="og:updated_time" content="2017-08-23T09:00:39.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用的一些方法">
 <meta name="twitter:description" content="contains判断某一个节点是不是另一个节点的后代。调用contains()方法的应该是祖先节点，也就是搜索开始的节点，这个方法接收一个参数，即要检查的后代节点。如果是，返回true，否则，返回false。
@@ -290,6 +290,84 @@
 <h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。</p>
 <h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>sort() 方法用于对数组的元素进行排序。在原数组上进行排序，不生成副本。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> a-b</div><div class="line">&#125;)<span class="comment">//从小到大排序</span></div><div class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> b-a</div><div class="line">&#125;)<span class="comment">//从大到小排序</span></div></pre></td></tr></table></figure>
+<h2 id="不改变原数组："><a href="#不改变原数组：" class="headerlink" title="不改变原数组："></a>不改变原数组：</h2><p>1、 concat()</p>
+<ul>
+<li>连接两个或多个数组</li>
+<li><strong>不改变原数组</strong></li>
+<li>返回被连接数组的一个副本</li>
+</ul>
+<hr>
+<p>2、join()</p>
+<ul>
+<li>把数组中所有元素放入一个字符串</li>
+<li><strong>不改变原数组</strong></li>
+<li>返回字符串</li>
+</ul>
+<hr>
+<p>3、 slice()</p>
+<ul>
+<li>从已有的数组中返回选定的元素</li>
+<li><strong>不改变原数组</strong></li>
+<li>返回一个新数组</li>
+</ul>
+<hr>
+<p>4、 toString()</p>
+<ul>
+<li>把数组转为字符串</li>
+<li><strong>不改变原数组</strong></li>
+<li>返回数组的字符串形式</li>
+</ul>
+<h2 id="改变原数组："><a href="#改变原数组：" class="headerlink" title="改变原数组："></a>改变原数组：</h2><p>5、 pop()</p>
+<ul>
+<li><p>删除数组最后一个元素，如果数组为空，则不改变数组，返回undefined</p>
+</li>
+<li><p>改变原数组</p>
+</li>
+<li><p>返回被删除的元素</p>
+<hr>
+</li>
+</ul>
+<p>6、 push()</p>
+<ul>
+<li>向数组末尾添加一个或多个元素</li>
+<li>改变原数组</li>
+<li>返回新数组的长度</li>
+</ul>
+<hr>
+<p>7、 reverse()</p>
+<ul>
+<li>颠倒数组中元素的顺序</li>
+<li>改变原数组</li>
+<li>返回该数组</li>
+</ul>
+<hr>
+<p>8、 shift()</p>
+<ul>
+<li>把数组的第一个元素删除，若空数组，不进行任何操作，返回undefined</li>
+<li>改变原数组</li>
+<li>返回第一个元素的值</li>
+</ul>
+<hr>
+<p>9、 sort()</p>
+<ul>
+<li>对数组元素进行排序(ascii)</li>
+<li>改变原数组</li>
+<li>返回该数组</li>
+</ul>
+<hr>
+<p>10、 splice()</p>
+<ul>
+<li>从数组中添加/删除项目</li>
+<li>改变原数组</li>
+<li>返回被删除的元素</li>
+</ul>
+<hr>
+<p>11、 unshift()</p>
+<ul>
+<li>向数组的开头添加一个或多个元素</li>
+<li>改变原数组</li>
+<li>返回新数组的长度</li>
+</ul>
 
       
 
@@ -509,11 +587,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
